@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ApiRTC-ionic" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Expo Projects/AugmentedRealityApp" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/OffloadServer" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/POC/css-charts" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/POC/leaflet-example" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/CarHireAPI" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/Department of Arts and Culture/angular-routing-example" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/Department of Arts and Culture/angular4-router" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/Department of Arts and Culture/keshoa-api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/Department of Arts and Culture/keshoa-mobile" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/Department of Arts and Culture/nhc-api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/Department of Arts and Culture/nhc-prototype" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/Department of Arts and Culture/resetpassword-keshoa" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/Edinam/Chat App/talkorvent" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/Edinam/Chat App/talkorvent-api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/SMARTSEC" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/StudentAppAPI" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/Telkom/WatchPOC" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/bevapp.github.io" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/gitbot" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/peer-fund" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/peer-fund-api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/sa-food-price" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Remote/smartsecApp" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/UI-Challenges" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Youtube/insta" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/agora" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/auth0-audio" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dpo-paygate-payweb3" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/founda-music" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/founda-music-api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/gander-admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/gander-clientarea" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/gradufind" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ionic4-dark" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/original-founda-music-api" vcs="Git" />
+  </component>
+</project>
