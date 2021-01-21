@@ -4,22 +4,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
-    android:layout_margin="10dp">
-
+    android:layout_height="50dp"
+    android:layout_margin="10dp"
+    android:background="#FAFDFD">
 
     <TextView
-        android:id="@+id/storeName"
+        android:id="@+id/categoryName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="32dp"
-        android:text="Store name"
-        android:textColor="@color/white"
-        android:textSize="30sp"
         android:fontFamily="sans-serif-medium"
+        android:text="Category name"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

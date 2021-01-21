@@ -1,5 +1,6 @@
 package com.siviwe.safoodprice.view.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,9 +31,10 @@ class StoreAdapter(val stores : ArrayList<Store>) : RecyclerView.Adapter<StoreAd
 
     override fun onBindViewHolder(holder: StoreViewHolder, position: Int) {
         holder.view.findViewById<TextView>(R.id.storeName).text = stores[position].name
+        holder.view.setBackgroundColor(Color.parseColor(stores[position].color))
         holder.view.setOnClickListener {
             val action = StoresFragmentDirections.actionStoresFragmentToCategoriesFragment()
-            action.store = stores[position].name.toString()
+            action.store = stores[position].route.toString()
             Navigation.findNavController(it).navigate(action)
         }
 

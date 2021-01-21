@@ -1,10 +1,9 @@
 package com.siviwe.safoodprice.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.siviwe.safoodprice.model.Store
-import com.siviwe.safoodprice.network.StoreAPIService
+import com.siviwe.safoodprice.network.APIService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
@@ -16,7 +15,7 @@ class StoresViewModel: ViewModel() {
     val stores = MutableLiveData<ArrayList<Store>>()
     val isLoading = MutableLiveData<Boolean>()
 
-    private val storesSevice = StoreAPIService()
+    private val apiSevice = APIService()
     private val disposable = CompositeDisposable()
 
     fun refresh(){
@@ -27,7 +26,7 @@ class StoresViewModel: ViewModel() {
         isLoading.value = true
 
         disposable.add(
-                storesSevice.getStores().subscribeOn(Schedulers.newThread())
+                apiSevice.getStores().subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(object: DisposableSingleObserver<List<Store>>(){
                             override fun onSuccess(t: List<Store>) {
