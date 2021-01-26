@@ -1,32 +1,27 @@
 package com.siviwe.safoodprice.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ProgressBar
-import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.siviwe.safoodprice.R
 import com.siviwe.safoodprice.view.adapter.CategoryAdapter
 import com.siviwe.safoodprice.viewmodel.CategoriesViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CategoriesFragment : Fragment() {
-
-    private var storeName = ""
-    private lateinit var categoriesViewModel: CategoriesViewModel
-    private var categoriesAdapter = CategoryAdapter(ArrayList())
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    private val viewModel: CategoriesViewModel by navGraphViewModels(R.id.nav) {
+        defaultViewModelProviderFactory
     }
+    private var storeName = ""
+    private var categoriesAdapter = CategoryAdapter(ArrayList())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,12 +34,11 @@ class CategoriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        categoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
 
         arguments?.let {
 
             storeName = CategoriesFragmentArgs.fromBundle(it).store
-            categoriesViewModel.refresh(storeName)
+            viewModel.refresh(storeName)
 
             val categoriesRecView = view.findViewById<RecyclerView>(R.id.categoriesRecyclerView).apply {
                 layoutManager = LinearLayoutManager(context)
@@ -59,13 +53,13 @@ class CategoriesFragment : Fragment() {
 
     fun Observe(){
 
-        categoriesViewModel.isLoading.observe(this, Observer {
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
             if(it == false){
                 view?.findViewById<ProgressBar>(R.id.categoriesProgressBar)?.visibility = View.GONE
             }
         })
 
-        categoriesViewModel.categories.observe(this, Observer {
+        viewModel.categories.observe(viewLifecycleOwner, Observer {
             it?.let {
                 categoriesAdapter.updateCategories(it)
             }
