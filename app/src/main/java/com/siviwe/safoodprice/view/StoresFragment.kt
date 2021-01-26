@@ -35,8 +35,6 @@ class StoresFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.refresh()
-
         val recView = view.findViewById<RecyclerView>(R.id.storesRecyclerView)
         recView.apply {
             layoutManager = LinearLayoutManager(context)
@@ -44,24 +42,13 @@ class StoresFragment : Fragment() {
 
         }
 
-        Observe()
+        observeData()
     }
 
-    fun Observe(){
-
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
-            if(it == false){
-                view?.findViewById<ProgressBar>(R.id.storesProgressBar)?.visibility = View.GONE
-            }
-        })
-
-        viewModel.stores.observe(viewLifecycleOwner, Observer { stores ->
-            stores?.let {
-                storeAdapter.updateStoresList(stores)
-            }
+    private fun observeData(){
+        viewModel.getStores().observe(viewLifecycleOwner, Observer { stores ->
+            view?.findViewById<ProgressBar>(R.id.storesProgressBar)?.visibility = View.GONE
+            storeAdapter.updateStoresList(ArrayList(stores))
         })
     }
-
-
-
 }

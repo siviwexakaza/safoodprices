@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.siviwe.safoodprice.R
-import com.siviwe.safoodprice.model.Category
+import com.siviwe.safoodprice.providers.Category
 
 class CategoryAdapter(val categories: ArrayList<Category>): RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 

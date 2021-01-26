@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.siviwe.safoodprice.R
-import com.siviwe.safoodprice.model.Store
+import com.siviwe.safoodprice.providers.Store
 import com.siviwe.safoodprice.view.StoresFragmentDirections
 
 class StoreAdapter(val stores : ArrayList<Store>) : RecyclerView.Adapter<StoreAdapter.StoreViewHolder>() {
