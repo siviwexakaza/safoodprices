@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
+    id 'dagger.hilt.android.plugin'
 }
 
 
@@ -35,7 +36,7 @@ android {
 
     dataBinding.enabled = true
 }
-def lifeCycleExtensionVersion = '1.1.1'
+def lifecycleVersion = '2.2.0'
 def supportVersion = '28.0.0'
 def retrofitVersion = '2.3.0'
 def glideVersion = '4.9.0'
@@ -43,6 +44,7 @@ def rxJavaVersion = '2.1.1'
 def roomVersion = '2.1.0-rc01'
 def navVersion = '2.1.0-alpha05'
 def preferencesVersion = '1.0.0'
+def hiltAnnotationProcessorVersion = '1.0.0-alpha02'
 
 dependencies {
 
@@ -54,7 +56,7 @@ dependencies {
 
     implementation "com.android.support:design:$supportVersion"
 
-    implementation "android.arch.lifecycle:extensions:$lifeCycleExtensionVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
 
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
@@ -80,6 +82,10 @@ dependencies {
 
     implementation "androidx.preference:preference:$preferencesVersion"
 
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltAnnotationProcessorVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    kapt "androidx.hilt:hilt-compiler:$hiltAnnotationProcessorVersion"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

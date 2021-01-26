@@ -1,6 +1,6 @@
 package com.siviwe.safoodprice.viewmodel
 
-import android.widget.Toast
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.siviwe.safoodprice.model.Category
@@ -10,11 +10,10 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class CategoriesViewModel: ViewModel() {
+class CategoriesViewModel @ViewModelInject constructor(private val apiService: APIService): ViewModel() {
 
     val categories = MutableLiveData<ArrayList<Category>>()
     val isLoading = MutableLiveData<Boolean>()
-    val apiService = APIService()
     val disposable = CompositeDisposable()
 
     fun refresh(shop: String){
