@@ -1,15 +1,15 @@
 package com.siviwe.safoodprice.network
 
-import com.siviwe.safoodprice.model.Category
-import com.siviwe.safoodprice.model.Store
-import io.reactivex.Single
+import com.siviwe.safoodprice.model.CategoryResponse
+import com.siviwe.safoodprice.model.StoreResponse
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface API {
     @GET("shops")
-    fun getShops(): Single<List<Store>>
+    suspend fun getShops(): Response<List<StoreResponse>>
 
     @GET("{shop}/categories")
-    fun getCategories(@Path("shop") shop: String) : Single<List<Category>>
+    suspend fun getCategories(@Path("shop") shop: String) : Response<List<CategoryResponse>>
 }

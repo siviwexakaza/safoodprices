@@ -38,33 +38,21 @@ class CategoriesFragment : Fragment() {
         arguments?.let {
 
             storeName = CategoriesFragmentArgs.fromBundle(it).store
-            viewModel.refresh(storeName)
 
             val categoriesRecView = view.findViewById<RecyclerView>(R.id.categoriesRecyclerView).apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = categoriesAdapter
             }
-            Observe()
 
+            observeData(storeName)
         }
-
-
     }
 
-    fun Observe(){
+    fun observeData(storeName: String){
 
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
-            if(it == false){
-                view?.findViewById<ProgressBar>(R.id.categoriesProgressBar)?.visibility = View.GONE
-            }
+        viewModel.getCategories(storeName).observe(viewLifecycleOwner, Observer {
+            view?.findViewById<ProgressBar>(R.id.categoriesProgressBar)?.visibility = View.GONE
+            categoriesAdapter.updateCategories(ArrayList(it))
         })
-
-        viewModel.categories.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                categoriesAdapter.updateCategories(it)
-            }
-        })
-
     }
-
 }
