@@ -27,25 +27,24 @@ class StoresFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_stores, container, false)
         // Inflate the layout for this fragment
-        return view
+        return inflater.inflate(R.layout.fragment_stores, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val recView = view.findViewById<RecyclerView>(R.id.storesRecyclerView)
-        recView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = storeAdapter
+        recView.adapter = storeAdapter
 
-        }
-
-        observeData()
+        observeData(storeAdapter.stores.isEmpty())
     }
 
-    private fun observeData(){
+    private fun observeData(showLoadingIndicator: Boolean){
+        if (showLoadingIndicator) {
+            view?.findViewById<ProgressBar>(R.id.storesProgressBar)?.visibility = View.VISIBLE
+        }
+
         viewModel.getStores().observe(viewLifecycleOwner, Observer { stores ->
             view?.findViewById<ProgressBar>(R.id.storesProgressBar)?.visibility = View.GONE
             storeAdapter.updateStoresList(ArrayList(stores))
