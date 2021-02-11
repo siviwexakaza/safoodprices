@@ -1,6 +1,7 @@
 package com.siviwe.safoodprice.network
 
 import com.siviwe.safoodprice.model.CategoryResponse
+import com.siviwe.safoodprice.model.ProductResponse
 import com.siviwe.safoodprice.model.StoreResponse
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -10,6 +11,7 @@ import javax.inject.Inject
 interface APIService {
     suspend fun getStores(): Response<List<StoreResponse>>
     suspend fun getCategories(shop : String): Response<List<CategoryResponse>>
+    suspend fun getProducts(shop: String, category: String, page: Int): Response<List<ProductResponse>>
 }
 
 class APIServiceImpl @Inject constructor(): APIService {
@@ -24,5 +26,13 @@ class APIServiceImpl @Inject constructor(): APIService {
 
     override suspend fun getCategories(shop : String): Response<List<CategoryResponse>>{
         return api.getCategories(shop)
+    }
+
+    override suspend fun getProducts(
+        shop: String,
+        category: String,
+        page: Int
+    ): Response<List<ProductResponse>> {
+        return api.getProducts(shop,category, page)
     }
 }

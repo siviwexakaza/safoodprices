@@ -1,9 +1,6 @@
 package com.siviwe.safoodprice.dependencyinjection
 
-import com.siviwe.safoodprice.providers.CategoriesProvider
-import com.siviwe.safoodprice.providers.CategoriesProviderImpl
-import com.siviwe.safoodprice.providers.StoresProvider
-import com.siviwe.safoodprice.providers.StoresProviderImpl
+import com.siviwe.safoodprice.providers.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,4 +15,7 @@ interface CommonModule {
 
     @Binds
     fun bindsCategoriesProvider(impl: CategoriesProviderImpl): CategoriesProvider
+
+    @Binds
+    fun bindsProductsProvider(impl: ProductsProviderImpl): ProductsProvider
 }
