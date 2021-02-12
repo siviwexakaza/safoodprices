@@ -20,7 +20,9 @@ class StoresFragment : Fragment() {
     private val viewModel: StoresViewModel by navGraphViewModels(R.id.nav) {
         defaultViewModelProviderFactory
     }
-    private var storeAdapter = StoreAdapter(arrayListOf())
+    private var storeAdapter = StoreAdapter(arrayListOf()) { store ->
+        viewModel.selectedStore = store
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

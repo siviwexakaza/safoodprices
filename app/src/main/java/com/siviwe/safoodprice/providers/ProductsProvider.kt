@@ -7,7 +7,7 @@ interface ProductsProvider{
     suspend fun provideProducts(shop: String, category: String, page: Int): List<Product>
 }
 
-class ProductsProviderImpl @Inject constructor(val service: APIService): ProductsProvider{
+class ProductsProviderImpl @Inject constructor(private val service: APIService): ProductsProvider{
     override suspend fun provideProducts(shop: String, category: String, page: Int): List<Product> {
         return service.getProducts(shop, category, page).body()?.map{
             Product(it.name, it.price, it.imageURL, it.store)

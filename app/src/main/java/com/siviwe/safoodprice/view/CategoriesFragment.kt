@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.siviwe.safoodprice.R
 import com.siviwe.safoodprice.view.adapter.CategoryAdapter
 import com.siviwe.safoodprice.viewmodel.CategoriesViewModel
+import com.siviwe.safoodprice.viewmodel.StoresViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,8 +21,9 @@ class CategoriesFragment : Fragment() {
     private val viewModel: CategoriesViewModel by navGraphViewModels(R.id.nav) {
         defaultViewModelProviderFactory
     }
-    private var storeName = ""
-    private var categoriesAdapter = CategoryAdapter(ArrayList(),storeName)
+    private val storesViewModel: StoresViewModel by navGraphViewModels(R.id.nav) {
+        defaultViewModelProviderFactory
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,25 +35,18 @@ class CategoriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        storesViewModel.selectedStore?.let {
+            val categoriesAdapter = CategoryAdapter(ArrayList(), it)
+            view.findViewById<RecyclerView>(R.id.categoriesRecyclerView).adapter = categoriesAdapter
 
-        arguments?.let {
-
-            storeName = CategoriesFragmentArgs.fromBundle(it).store
-            categoriesAdapter.setStoreValue(storeName)
-
-            val categoriesRecView = view.findViewById<RecyclerView>(R.id.categoriesRecyclerView).apply {
-                adapter = categoriesAdapter
-            }
-
-            observeData(storeName)
+            observeData(categoriesAdapter, it.name)
         }
     }
 
-    fun observeData(storeName: String){
-
+    private fun observeData(adapter: CategoryAdapter, storeName: String){
         viewModel.getCategories(storeName).observe(viewLifecycleOwner, Observer {
             view?.findViewById<ProgressBar>(R.id.categoriesProgressBar)?.visibility = View.GONE
-            categoriesAdapter.updateCategories(ArrayList(it))
+            adapter.updateCategories(ArrayList(it))
         })
     }
 }

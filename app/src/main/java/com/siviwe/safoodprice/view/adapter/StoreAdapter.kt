@@ -11,7 +11,7 @@ import com.siviwe.safoodprice.R
 import com.siviwe.safoodprice.providers.Store
 import com.siviwe.safoodprice.view.StoresFragmentDirections
 
-class StoreAdapter(val stores : ArrayList<Store>) : RecyclerView.Adapter<StoreAdapter.StoreViewHolder>() {
+class StoreAdapter(val stores : ArrayList<Store>, private val onStoreSelected: (Store) -> Unit) : RecyclerView.Adapter<StoreAdapter.StoreViewHolder>() {
 
     class StoreViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
@@ -30,13 +30,13 @@ class StoreAdapter(val stores : ArrayList<Store>) : RecyclerView.Adapter<StoreAd
     override fun getItemCount() = stores.count()
 
     override fun onBindViewHolder(holder: StoreViewHolder, position: Int) {
-        holder.view.findViewById<TextView>(R.id.storeName).text = stores[position].name
-        holder.view.setBackgroundColor(Color.parseColor(stores[position].color))
+        val store = stores[position]
+        holder.view.findViewById<TextView>(R.id.storeName).text = store.name
+        holder.view.setBackgroundColor(Color.parseColor(store.color))
         holder.view.setOnClickListener {
+            onStoreSelected(store)
             val action = StoresFragmentDirections.actionStoresFragmentToCategoriesFragment()
-            action.store = stores[position].route.toString()
             Navigation.findNavController(it).navigate(action)
         }
-
     }
 }
