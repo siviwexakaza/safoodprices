@@ -21,15 +21,14 @@ class CategoriesFragment : Fragment() {
         defaultViewModelProviderFactory
     }
     private var storeName = ""
-    private var categoriesAdapter = CategoryAdapter(ArrayList())
+    private var categoriesAdapter = CategoryAdapter(ArrayList(),storeName)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_categories, container, false)
-        return view
+
+        return inflater.inflate(R.layout.fragment_categories, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,9 +37,9 @@ class CategoriesFragment : Fragment() {
         arguments?.let {
 
             storeName = CategoriesFragmentArgs.fromBundle(it).store
+            categoriesAdapter.setStoreValue(storeName)
 
             val categoriesRecView = view.findViewById<RecyclerView>(R.id.categoriesRecyclerView).apply {
-                layoutManager = LinearLayoutManager(context)
                 adapter = categoriesAdapter
             }
 

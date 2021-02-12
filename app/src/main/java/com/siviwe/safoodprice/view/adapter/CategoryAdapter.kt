@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.siviwe.safoodprice.R
 import com.siviwe.safoodprice.providers.Category
+import com.siviwe.safoodprice.view.CategoriesFragmentDirections
 
-class CategoryAdapter(val categories: ArrayList<Category>): RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+class CategoryAdapter(val categories: ArrayList<Category>, var store: String): RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     class CategoryViewHolder(val view: View): RecyclerView.ViewHolder(view)
 
@@ -16,6 +18,10 @@ class CategoryAdapter(val categories: ArrayList<Category>): RecyclerView.Adapter
         categories.clear()
         categories.addAll(newCategories)
         notifyDataSetChanged()
+    }
+
+    fun setStoreValue(storeValue: String){
+        store = storeValue
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -28,5 +34,11 @@ class CategoryAdapter(val categories: ArrayList<Category>): RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.view.findViewById<TextView>(R.id.categoryName).text = categories[position].name
+        holder.view.setOnClickListener {
+            val action = CategoriesFragmentDirections.actionCategoriesFragmentToProductsFragment()
+            action.store = store
+            action.category = categories[position].name.toString()
+            Navigation.findNavController(it).navigate(action)
+        }
     }
 }

@@ -6,30 +6,56 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import androidx.navigation.navGraphViewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.siviwe.safoodprice.R
+import com.siviwe.safoodprice.view.adapter.ProductAdapter
+import com.siviwe.safoodprice.viewmodel.ProductsViewModel
 
 
 class ProductsFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    private val viewModel: ProductsViewModel by navGraphViewModels(R.id.nav) {
+        defaultViewModelProviderFactory
     }
+
+    private var productsAdapter = ProductAdapter(arrayListOf())
+    private var storeName = ""
+    private var categoryName = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_products, container, false)
 
-        val backButton = view.findViewById<Button>(R.id.btnBack)
-        backButton.setOnClickListener {
-            val action = ProductsFragmentDirections.actionProductsFragmentToCategoriesFragment()
-            Navigation.findNavController(it).navigate(action)
+        return inflater.inflate(R.layout.fragment_products, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        arguments?.let{
+            storeName = ProductsFragmentArgs.fromBundle(it).store
+            categoryName = ProductsFragmentArgs.fromBundle(it).category
+
+            val productAdapter = view.findViewById<RecyclerView>(R.id.productsRecyclerView).apply {
+                adapter = productsAdapter
+            }
+
+            observeData(storeName,categoryName,0)
+
         }
-        return view
+    }
+
+    fun observeData(shop: String, category: String, page: Int){
+        viewModel.getProducts(shop, category, page).observe(viewLifecycleOwner, Observer {
+            view?.findViewById<ProgressBar>(R.id.productsProgressBar)?.visibility = View.GONE
+            productsAdapter.updateProducts(ArrayList(it))
+        })
     }
 
 
