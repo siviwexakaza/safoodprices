@@ -1,22 +1,22 @@
 package com.siviwe.safoodprice.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ProgressBar
-import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.siviwe.safoodprice.R
+import com.siviwe.safoodprice.extensions.hide
+import com.siviwe.safoodprice.extensions.visibleOrGone
 import com.siviwe.safoodprice.view.adapter.ProductAdapter
 import com.siviwe.safoodprice.viewmodel.ProductsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ProductsFragment : Fragment() {
 
     private val viewModel: ProductsViewModel by navGraphViewModels(R.id.nav) {
@@ -42,21 +42,18 @@ class ProductsFragment : Fragment() {
             storeName = ProductsFragmentArgs.fromBundle(it).store
             categoryName = ProductsFragmentArgs.fromBundle(it).category
 
-            val productAdapter = view.findViewById<RecyclerView>(R.id.productsRecyclerView).apply {
-                adapter = productsAdapter
-            }
+            view.findViewById<RecyclerView>(R.id.productsRecyclerView).adapter = productsAdapter
 
-            observeData(storeName,categoryName,0)
-
+            observeData(storeName, categoryName, 0, productsAdapter.products.isEmpty())
         }
     }
 
-    fun observeData(shop: String, category: String, page: Int){
+    private fun observeData(shop: String, category: String, page: Int, showLoadingIndicator: Boolean){
+        view?.findViewById<ProgressBar>(R.id.productsProgressBar)?.visibleOrGone(showLoadingIndicator)
+
         viewModel.getProducts(shop, category, page).observe(viewLifecycleOwner, Observer {
-            view?.findViewById<ProgressBar>(R.id.productsProgressBar)?.visibility = View.GONE
+            view?.findViewById<ProgressBar>(R.id.productsProgressBar)?.hide()
             productsAdapter.updateProducts(ArrayList(it))
         })
     }
-
-
 }
