@@ -6,16 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.siviwe.safoodprice.R
 import com.siviwe.safoodprice.extensions.loadImage
 import com.siviwe.safoodprice.providers.Product
 import com.siviwe.safoodprice.utils.getProgressDrawable
-import java.util.zip.Inflater
 
 class ProductAdapter(val products: ArrayList<Product>): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
-
-    class ProductViewHolder(val view: View): RecyclerView.ViewHolder(view)
 
     fun updateProducts(newProducts: ArrayList<Product>){
         products.clear()
@@ -32,11 +28,23 @@ class ProductAdapter(val products: ArrayList<Product>): RecyclerView.Adapter<Pro
 
     override fun getItemCount() = products.count()
 
-    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.view.findViewById<TextView>(R.id.productName).text = products[position].name
-        holder.view.findViewById<TextView>(R.id.productPrice).text = products[position].price
-        holder.view.findViewById<TextView>(R.id.productStore).text = products[position].store
-        holder.view.findViewById<ImageView>(R.id.productImage)
-                .loadImage(products[position].imageURL!!, getProgressDrawable(holder.view.findViewById<ImageView>(R.id.productImage).context))
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) = holder.bind(products[position])
+
+    inner class ProductViewHolder(val view: View): RecyclerView.ViewHolder(view) {
+        private val productName = view.findViewById<TextView>(R.id.productName)
+        private val productPrice = view.findViewById<TextView>(R.id.productPrice)
+        private val productStore = view.findViewById<TextView>(R.id.productStore)
+        private val productImage = view.findViewById<ImageView>(R.id.productImage)
+
+        fun bind(product: Product) {
+            productName.text = product.name
+            productPrice.text = product.price
+            productStore.text = product.store
+            if (product.imageURL != null) {
+                productImage.loadImage(product.imageURL, getProgressDrawable(productImage.context))
+            } else {
+                productImage.setImageDrawable(null)
+            }
+        }
     }
 }
